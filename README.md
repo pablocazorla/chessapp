@@ -1,2 +1,1 @@
-# chessapp
- 
+# Chess App

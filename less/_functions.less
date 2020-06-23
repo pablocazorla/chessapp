@@ -1,0 +1,385 @@
+// TEXT FUNCTIONS
+
+.black(){
+	font-weight: 900;
+}
+.bold(){
+	font-weight: 800;
+}
+.italic(){
+	font-style: italic;
+}
+.uppercase(){
+  text-transform: uppercase;
+}
+
+// OPACITY
+.op(@o){
+	opacity: @o;
+}
+// TRANSITION
+.transition(@t){
+  -webkit-transition:@t;
+  -ms-transition:@t;
+  transition:@t;
+}
+// TRANSFORM
+.transform(@t) {
+  -webkit-transform: @t;
+  -ms-transform: @t;
+  transform: @t;
+}
+// ANIMATION
+.animation(@a){
+  -webkit-animation: @a;
+  -moz-animation:    @a;
+  -o-animation:      @a;
+  animation:         @a;
+}
+.noselect() {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+// GRADIENTS
+.gradient(@a, @b) {
+  background: @a;
+  background: -moz-linear-gradient(top, @a 0%, @b 100%);
+  background: -webkit-linear-gradient(top, @a 0%, @b 100%);
+  background: linear-gradient(to bottom, @a 0%, @b 100%);
+}
+// IMG PROP CONSTRUCT
+.prop-construct(@w: 4, @h: 3) {
+  padding-bottom: percentage(@h / @w);
+}
+// USER SELECTION
+.user-select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+// BORDER RADIUS
+.border-radius(@r) when (@r > 0) {
+	border-radius:@r;
+}
+.box-sizing-border() {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.box-sizing-content() {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+// DISPLAY
+.inline(){
+	display: inline;
+}
+.inline-block(){
+	display: inline-block;
+}
+.block(){
+	display: block;
+}
+
+// Button Similar
+@is-btn:false;
+.btn-similar() when (@is-btn = true) {
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+	.btn;
+}
+.btn-color-construct(@bg-color, @color,@b-color){
+	background-color: @bg-color;
+  color:@color;
+  border-color: @b-color;
+  @t:background-color .1s,color .1s,border-color .1s;
+  .transition(@t);
+  &:hover{
+    background-color: lighten(@bg-color, 10%);
+    border-color: lighten(@bg-color, 10%);
+  }
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    background-color: lighten(@bg-color, 15%);
+    border-color: lighten(@bg-color, 15%);
+  }
+  &.linear{
+    background-color: transparent;
+    color: @bg-color;
+    border-color: @bg-color;
+    &:hover{
+      background-color: @bg-color;
+      color:@color;
+    }
+  }
+}
+.button-text(){
+  white-space: nowrap;
+}
+
+.unwrap(){
+  .button-text;
+}
+
+
+
+
+
+
+// GRID SYSTEM FUNCTIONS
+
+.generate-gaps(@txt, @n, @i: 0) when (@i =< @n) {
+  @num: @i;
+  .gap@{txt}@{num}{
+    &.row,
+    & > .row {
+      margin-left: -0.5 * @num * @rem;
+      margin-right: -0.5 * @num * @rem;
+      & > .col {
+        padding-left: 0.5 * @num * @rem;
+        padding-right: 0.5 * @num * @rem;
+      }
+    }  
+  }
+  .generate-gaps(@txt, @n, (@i + 1));
+}
+.generate-grids(@txt, @n, @i: 0) when (@i =< @n) {
+  @num: @i;
+  .grid@{txt}@{num}{
+    .col {
+      width: percentage(1 / @num);
+    }
+  }
+  .generate-grids(@txt, @n, (@i + 1));
+}
+.generate-col(@txt) {
+  .col-construct(@c, @t) {
+    width: percentage(@c / @t);
+  }
+  &.col@{txt}1-1{
+    .col-construct(1, 1);
+  }
+  &.col@{txt}1-2,
+  &.col@{txt}2-4,
+  &.col@{txt}3-6,
+  &.col@{txt}4-8 {
+    .col-construct(1, 2);
+  }
+  &.col@{txt}1-3,
+  &.col@{txt}2-6,
+  &.col@{txt}3-9 {
+    .col-construct(1, 3);
+  }
+  &.col@{txt}2-3,
+  &.col@{txt}4-6,
+  &.col@{txt}6-9 {
+    .col-construct(2, 3);
+  }
+  &.col@{txt}1-4,
+  &.col@{txt}2-8 {
+    .col-construct(1, 4);
+  }
+  &.col@{txt}3-4,
+  &.col@{txt}6-8 {
+    .col-construct(3, 4);
+  }
+  &.col@{txt}1-5 {
+    .col-construct(1, 5);
+  }
+  &.col@{txt}2-5 {
+    .col-construct(2, 5);
+  }
+  &.col@{txt}3-5 {
+    .col-construct(3, 5);
+  }
+  &.col@{txt}4-5 {
+    .col-construct(4, 5);
+  }
+  &.col@{txt}1-6 {
+    .col-construct(1, 6);
+  }
+  &.col@{txt}5-6 {
+    .col-construct(5, 6);
+  }
+  &.col@{txt}1-7 {
+    .col-construct(1, 7);
+  }
+  &.col@{txt}2-7 {
+    .col-construct(2, 7);
+  }
+  &.col@{txt}3-7 {
+    .col-construct(3, 7);
+  }
+  &.col@{txt}4-7 {
+    .col-construct(4, 7);
+  }
+  &.col@{txt}5-7 {
+    .col-construct(5, 7);
+  }
+  &.col@{txt}6-7 {
+    .col-construct(6, 7);
+  }
+  &.col@{txt}1-8 {
+    .col-construct(1, 8);
+  }
+  &.col@{txt}3-8 {
+    .col-construct(3, 8);
+  }
+  &.col@{txt}5-8 {
+    .col-construct(5, 8);
+  }
+  &.col@{txt}7-8 {
+    .col-construct(5, 8);
+  }
+  &.col@{txt}1-9 {
+    .col-construct(1, 9);
+  }
+  &.col@{txt}2-9 {
+    .col-construct(2, 9);
+  }
+  &.col@{txt}4-9 {
+    .col-construct(4, 9);
+  }
+  &.col@{txt}5-9 {
+    .col-construct(5, 9);
+  }
+  &.col@{txt}7-9 {
+    .col-construct(7, 9);
+  }
+  &.col@{txt}8-9 {
+    .col-construct(8, 9);
+  }
+}
+.generate-offset(@txt) {
+  .col-offset-construct(@c, @t) {
+    margin-left: percentage(@c / @t);
+  }
+  &.offset@{txt}1-2,
+  &.offset@{txt}2-4,
+  &.offset@{txt}3-6,
+  &.offset@{txt}4-8 {
+    .col-offset-construct(1, 2);
+  }
+  &.offset@{txt}1-3,
+  &.offset@{txt}2-6,
+  &.offset@{txt}3-9 {
+    .col-offset-construct(1, 3);
+  }
+  &.offset@{txt}2-3,
+  &.offset@{txt}4-6,
+  &.offset@{txt}6-9 {
+    .col-offset-construct(2, 3);
+  }
+  &.offset@{txt}1-4,
+  &.offset@{txt}2-8 {
+    .col-offset-construct(1, 4);
+  }
+  &.offset@{txt}3-4,
+  &.offset@{txt}6-8 {
+    .col-offset-construct(3, 4);
+  }
+  &.offset@{txt}1-5 {
+    .col-offset-construct(1, 5);
+  }
+  &.offset@{txt}2-5 {
+    .col-offset-construct(2, 5);
+  }
+  &.offset@{txt}3-5 {
+    .col-offset-construct(3, 5);
+  }
+  &.offset@{txt}4-5 {
+    .col-offset-construct(4, 5);
+  }
+  &.offset@{txt}1-6 {
+    .col-offset-construct(1, 6);
+  }
+  &.offset@{txt}5-6 {
+    .col-offset-construct(5, 6);
+  }
+  &.offset@{txt}1-7 {
+    .col-offset-construct(1, 7);
+  }
+  &.offset@{txt}2-7 {
+    .col-offset-construct(2, 7);
+  }
+  &.offset@{txt}3-7 {
+    .col-offset-construct(3, 7);
+  }
+  &.offset@{txt}4-7 {
+    .col-offset-construct(4, 7);
+  }
+  &.offset@{txt}5-7 {
+    .col-offset-construct(5, 7);
+  }
+  &.offset@{txt}6-7 {
+    .col-offset-construct(6, 7);
+  }
+  &.offset@{txt}1-8 {
+    .col-offset-construct(1, 8);
+  }
+  &.offset@{txt}3-8 {
+    .col-offset-construct(3, 8);
+  }
+  &.offset@{txt}5-8 {
+    .col-offset-construct(5, 8);
+  }
+  &.offset@{txt}7-8 {
+    .col-offset-construct(5, 8);
+  }
+  &.offset@{txt}1-9 {
+    .col-offset-construct(1, 9);
+  }
+  &.offset@{txt}2-9 {
+    .col-offset-construct(2, 9);
+  }
+  &.offset@{txt}4-9 {
+    .col-offset-construct(4, 9);
+  }
+  &.offset@{txt}5-9 {
+    .col-offset-construct(5, 9);
+  }
+  &.offset@{txt}7-9 {
+    .col-offset-construct(7, 9);
+  }
+  &.offset@{txt}8-9 {
+    .col-offset-construct(8, 9);
+  }
+}
+
+
+
+// FLEX SYSTEM FUNCTIONS
+
+.generate-gaps-flex(@txt, @n, @i: 0) when (@i =< @n) {
+  @num: @i;
+  &.gap@{txt}@{num}{
+    
+    margin-left: -0.5 * @num * @rem;
+    margin-right: -0.5 * @num * @rem;
+    & > .col {
+      padding-left: 0.5 * @num * @rem;
+      padding-right: 0.5 * @num * @rem;
+      padding-bottom: @num * @rem;
+    }
+  }  
+  
+  .generate-gaps-flex(@txt, @n, (@i + 1));
+}
+
+
+
+
+
+
+

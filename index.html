@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>CHESS APP | AJEDREZ</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="favicon/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="favicon/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="favicon/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="favicon/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="favicon/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="favicon/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="favicon/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="favicon/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="favicon/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="favicon/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="favicon/manifest.json" />
+    <meta name="msapplication-TileColor" content="#222222" />
+    <meta
+      name="msapplication-TileImage"
+      content="favicon/ms-icon-144x144.png"
+    />
+    <meta name="theme-color" content="#222222" />
+
+    <!-- <a href="https://www.freepik.com/free-photos-vectors/template">Template vector created by brgfx - www.freepik.com</a> -->
+    <!-- CSS -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Righteous|Montserrat:400,700"
+      rel="stylesheet"
+    />
+    <link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/chessboard.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="presentation" id="presentation">
+      <div class="presentation-content">
+        <div class="container">
+          <div class="img-cont an-top a1">
+            <img src="img/wq.svg" alt="" />
+          </div>
+          <div class="text-cont">
+            <div class="brand">
+              <div class="tit an-top a2">
+                Chess App
+              </div>
+              <div class="sub">
+                <div class="an-top a3">Ajedrez</div>
+              </div>
+            </div>
+            <div class="presentation-inf min-text an-top a4">
+              <p>v.1.0 - by Pablo Cazorla</p>
+              <p>Chessboard JS v.0.3.0 - Copyright 2013 Chris Oakman.</p>
+              <p>
+                Chess JS - Copyright (c) 2017, Jeff Hlywa (jhlywa@gmail.com).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container main">
+      <div class="board-container" id="board-container">
+        <div id="board" class="board"></div>
+      </div>
+      <div class="msg">
+        <div class="msg-col">
+          <div class="btn quad toggle-menu" title="Menú de opciones">
+            <i class="fa fa-bars"></i>
+          </div>
+        </div>
+        <div class="msg-col msg-text" id="msg">
+          <span class="mesg msg-check">¡Jaque!</span>
+          <span class="mesg msg-checkmate msg-checkmate-white"
+            >¡Jaque Mate! Ganan las blancas</span
+          >
+          <span class="mesg msg-checkmate msg-checkmate-black"
+            >¡Jaque Mate! Ganan las negras</span
+          >
+          <span class="mesg msg-draw">Tablas :-/</span>
+          <span class="mesg msg-think"
+            ><i class="fa fa-cog fa-spin"></i> evaluando...</span
+          >
+        </div>
+        <div class="msg-col">
+          <div class="btn quad" id="btn-undo" title="Deshacer jugada">
+            <i class="fa fa-undo"></i>
+          </div>
+        </div>
+      </div>
+      <div class="info">
+        <div class="c">
+          <span>Posiciones evaluadas:</span>
+          <strong id="position-count">-</strong>
+        </div>
+        <div class="c"><span>Tiempo:</span> <strong id="time">-</strong></div>
+        <div class="c">
+          <span>Posiciones/segundo:</span>
+          <strong id="positions-per-s">-</strong>
+        </div>
+      </div>
+      <div class="historial" id="move-history"></div>
+    </div>
+    <div class="options" id="menu">
+      <div class="container">
+        <div class="btn-close-menu toggle-menu an-left a4">
+          <i class="fa fa-times"></i>
+        </div>
+      </div>
+      <div class="options-content">
+        <div class="container">
+          <div class="tit an-left a1">Opciones</div>
+          <div class="theme-opt">
+            <div class="lab">
+              Tema:
+            </div>
+            <div class="opt-row">
+              <div class="opt-col" id="opt-theme">
+                <div class="th-box th-box-a current">
+                  <div></div>
+                  <div></div>
+                </div>
+                <div class="th-box th-box-b">
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+              <div class="opt-col" id="opt-pieces">
+                <div class="btn-op-col b-wikipedia">
+                  <img src="img/chesspieces/wikipedia/wN.png" alt="" />
+                </div>
+                <div class="btn-op-col b-freepik">
+                  <img src="img/chesspieces/freepik/wN.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="opt-row an-left a2">
+            <div class="opt-col lab lab-h">
+              Jugar con:
+            </div>
+            <div class="opt-col" id="opt-color">
+              <div class="btn-op-col white">
+                <img src="img/chesspieces//wikipedia/wQ.png" alt="Blancas" />
+                <div class="tx">Blancas</div>
+              </div>
+              <div class="btn-op-col black">
+                <img src="img/chesspieces//wikipedia/bQ.png" alt="Negras" />
+                <div class="tx">Negras</div>
+              </div>
+            </div>
+          </div>
+          <div class="opt-depth an-left a3">
+            <div class="lab">
+              Nivel de IA (inteligencia artificial):
+            </div>
+            <div class="opt-depth-row" id="opt-depth">
+              <div class="btn-op-depth v1">1</div>
+              <div class="btn-op-depth v2">2</div>
+              <div class="btn-op-depth v3">3</div>
+              <div class="btn-op-depth v4">4</div>
+            </div>
+          </div>
+          <div class="opt-actions an-left a4">
+            <div class="opt-row">
+              <div class="opt-col">
+                <div class="btn btn-cont toggle-menu">Continuar</div>
+              </div>
+              <div class="opt-col">
+                <span class="opt-act-separator">ó</span>
+              </div>
+              <div class="opt-col">
+                <div class="btn btn-new toggle-menu" id="btn-new-game">
+                  Nueva partida
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about an-left a4">
+            <span class="toggle-presentation">Acerca de</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script type="text/javascript" src="js/libs/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/libs/chess.min.js"></script>
+    <script
+      type="text/javascript"
+      src="js/libs/chessboard-0.3.0.min.js"
+    ></script>
+    <script type="text/javascript" src="js/chessApp.js"></script>
+  </body>
+</html>

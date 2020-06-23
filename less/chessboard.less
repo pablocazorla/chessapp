@@ -1,0 +1,159 @@
+@import "_functions.less";
+
+@theme-a-w: #f0d9b5;
+@theme-a-b: #b58863;
+
+@theme-b-w: #eff7f6;
+@theme-b-b: #98b7c2;
+
+@theme-highlight: #FFF;
+
+/* clearfix */
+.clearfix-7da63 {
+  clear: both;
+}
+
+/* board */
+.board-b72b1 {
+  border: 2px solid #404040;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* square */
+.square-55d63 {
+  float: left;
+  position: relative;
+  .transition(background-color .1s);
+
+  /* disable any native browser highlighting */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  // img{
+  //   position: relative;
+  //   z-index: 10;
+  // }
+
+  &:before {
+    @wp: 26%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    .transform(translateX(-50%) translateY(-50%));
+    width: @wp;
+    height: @wp;
+    content: '';
+    background-color: #00eeb0;
+    border-radius: 52%;
+    box-shadow:
+      /*inset -4px -4px 6px rgba(0, 0, 0, .4),*/
+      0 0 0 3px rgba(0, 0, 0, .3);
+    opacity: 0;
+    .transition(opacity .1s);
+  }
+
+  &.possible {
+    &:before {
+      opacity: 1;
+    }
+  }
+  &.current{
+    cursor:move;
+  }
+}
+
+
+.th-box-a{
+  background-color: @theme-a-w;
+  div{
+    background-color: @theme-a-b;
+  }
+}
+.th-box-b{
+  background-color: @theme-b-w;
+  div{
+    background-color: @theme-b-b;
+  }
+}
+
+.theme-a{
+  /* white square */
+  .white-1e1d7 {
+    background-color: @theme-a-w;
+    color: @theme-a-b;
+    &.current{
+      background-color: lighten(@theme-a-w,8%);
+    }
+    &.possible {
+      background-color: lighten(@theme-a-w,3%);
+    }
+  }  
+  /* black square */
+  .black-3c85d {
+    background-color: @theme-a-b;
+    color: @theme-a-w;
+    &.current{
+      background-color: darken(@theme-a-b,20%);
+    }
+    &.possible {
+      background-color: lighten(@theme-a-b,3%);
+    }
+  }
+}
+.theme-b{
+  /* white square */
+  .white-1e1d7 {
+    background-color: @theme-b-w;
+    color: @theme-b-b;
+    &.current{
+      background-color: lighten(@theme-b-w,8%);
+    }
+    &.possible {
+      background-color: lighten(@theme-b-w,3%);
+    }
+  }  
+  /* black square */
+  .black-3c85d {
+    background-color: @theme-b-b;
+    color: @theme-b-w;
+    &.current{
+      background-color: darken(@theme-b-b,20%);
+    }
+    &.possible {
+      background-color: lighten(@theme-b-b,3%);
+    }
+  }
+}
+
+
+/* highlighted square */
+.highlight1-32417,
+.highlight2-9c5d2 {
+  -webkit-box-shadow: inset 0 0 3px 3px @theme-highlight;
+  -moz-box-shadow: inset 0 0 3px 3px @theme-highlight;
+  box-shadow: inset 0 0 3px 3px @theme-highlight;
+}
+
+/* notation */
+.notation-322f9 {
+  cursor: default;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  position: absolute;
+}
+
+.alpha-d2270 {
+  bottom: 1px;
+  right: 3px;
+}
+
+.numeric-fc462 {
+  top: 2px;
+  left: 2px;
+}
